@@ -27,7 +27,7 @@ const APPS: AppItem[] = [
     name: "Visit Management",
     description: "Plantation Inspection System",
     href: "https://blocktrack.lonsum.site/",
-    background: "/landingpage/Block.jpg",
+    background: "/landingpage/Block-clip.jpg",
     accent: "#fffff",
     accentSoft: "rgba(5, 231, 5, 0.12)",
   },
