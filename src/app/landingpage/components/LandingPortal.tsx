@@ -274,7 +274,7 @@ export default function LandingPortal() {
           <p>
             {activeApp
               ? activeApp.description
-              : "Hover untuk melihat pratinjau tema"}
+              : "Klik untuk melihat pratinjau tema"}
           </p>
         </footer>
       </div>
