@@ -1,0 +1,376 @@
+html:has(.landing-portal),
+html:has(.landing-portal) body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.landing-portal {
+  --text-primary: rgba(255, 255, 255, 0.96);
+  --text-secondary: rgba(255, 255, 255, 0.48);
+  --text-muted: rgba(255, 255, 255, 0.32);
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-hover: rgba(255, 255, 255, 0.07);
+  --border: rgba(255, 255, 255, 0.08);
+  --active-accent: rgba(255, 255, 255, 0.4);
+  --active-accent-soft: transparent;
+
+  position: relative;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* ── Background ── */
+
+.landing-portal__backgrounds {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.landing-portal__bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.04);
+  filter: saturate(0.85);
+  transition:
+    opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.4s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.9s ease;
+}
+
+.landing-portal__bg-layer.is-active {
+  opacity: 1;
+  transform: scale(1);
+  filter: saturate(1);
+}
+
+.landing-portal__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(8, 8, 12, 0.88) 0%,
+    rgba(8, 8, 12, 0.72) 50%,
+    rgba(8, 8, 12, 0.86) 100%
+  );
+}
+
+.landing-portal__ambient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 80%,
+    var(--active-accent-soft),
+    transparent 70%
+  );
+  transition: background 0.6s ease;
+  pointer-events: none;
+}
+
+/* ── Layout ── */
+
+.landing-portal__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1rem, 2.5vh, 2rem);
+  padding: clamp(1.5rem, 3.5vh, 2.75rem) clamp(1.5rem, 6vw, 6rem);
+  max-width: 56rem;
+  box-sizing: border-box;
+}
+
+/* ── Header ── */
+
+.landing-portal__header {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1vh, 0.65rem);
+  flex-shrink: 0;
+}
+
+.landing-portal__eyebrow {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.landing-portal__title {
+  font-size: clamp(3.5rem, 5.5vh, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.landing-portal__tagline {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+/* ── Nav list ── */
+
+.landing-portal__nav {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+
+.landing-portal__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-portal__list li + li {
+  border-top: 1px solid var(--border);
+}
+
+/* ── App button row ── */
+
+.landing-portal__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  padding: clamp(0.9rem, 1.8vh, 1.35rem) 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  overflow: hidden;
+  transition: padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.landing-portal__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 2px;
+  height: 60%;
+  border-radius: 2px;
+  background: var(--accent);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.landing-portal__item-glow {
+  position: absolute;
+  inset: 0;
+  background: var(--accent-soft);
+  opacity: 0;
+  border-radius: 0.75rem;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.landing-portal__item:hover,
+.landing-portal__item:focus-visible,
+.landing-portal__item.is-active {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.landing-portal__item:hover::before,
+.landing-portal__item:focus-visible::before,
+.landing-portal__item.is-active::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.landing-portal__item:hover .landing-portal__item-glow,
+.landing-portal__item:focus-visible .landing-portal__item-glow,
+.landing-portal__item.is-active .landing-portal__item-glow {
+  opacity: 1;
+}
+
+/* App icon */
+
+.landing-portal__item-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.85rem;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  background: var(--surface);
+  transition:
+    color 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease,
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.landing-portal__item:hover .landing-portal__item-icon,
+.landing-portal__item:focus-visible .landing-portal__item-icon,
+.landing-portal__item.is-active .landing-portal__item-icon {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: var(--accent-soft);
+  transform: scale(1.05);
+}
+
+/* Text body */
+
+.landing-portal__item-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.landing-portal__item-name {
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.landing-portal__item-desc {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+  transition: color 0.3s ease;
+}
+
+.landing-portal__item:hover .landing-portal__item-name,
+.landing-portal__item:focus-visible .landing-portal__item-name,
+.landing-portal__item.is-active .landing-portal__item-name {
+  color: var(--accent);
+}
+
+.landing-portal__item:hover .landing-portal__item-desc,
+.landing-portal__item:focus-visible .landing-portal__item-desc,
+.landing-portal__item.is-active .landing-portal__item-desc {
+  color: var(--text-secondary);
+}
+
+/* Arrow button */
+
+.landing-portal__item-action {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  background: transparent;
+  transition:
+    border-color 0.35s ease,
+    background 0.35s ease,
+    color 0.35s ease,
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.landing-portal__item:hover .landing-portal__item-action,
+.landing-portal__item:focus-visible .landing-portal__item-action,
+.landing-portal__item.is-active .landing-portal__item-action {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #0a0a0a;
+  transform: translateX(4px);
+}
+
+/* ── Footer ── */
+
+.landing-portal__footer {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  transition: color 0.4s ease;
+  flex-shrink: 0;
+}
+
+.landing-portal__footer-dot {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--active-accent);
+  transition: background 0.4s ease;
+}
+
+.landing-portal__footer p {
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+/* ── Responsive ── */
+
+@media (max-height: 720px) {
+  .landing-portal__title {
+    font-size: clamp(1.75rem, 4.5vh, 2.5rem);
+  }
+
+  .landing-portal__tagline {
+    font-size: 1.05rem;
+  }
+
+  .landing-portal__item-name {
+    font-size: 1.25rem;
+  }
+
+  .landing-portal__item-desc {
+    font-size: 0.95rem;
+  }
+
+  .landing-portal__item {
+    padding-block: clamp(0.65rem, 1.4vh, 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-portal__content {
+    gap: clamp(0.75rem, 2vh, 1.5rem);
+    padding: clamp(1.25rem, 3vh, 2rem) 1.25rem;
+  }
+
+  .landing-portal__item {
+    grid-template-columns: 3rem 1fr auto;
+    gap: 1.15rem;
+  }
+
+  .landing-portal__item-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .landing-portal__item-name {
+    font-size: 1.3rem;
+  }
+
+  .landing-portal__item-desc {
+    font-size: 1rem;
+  }
+}
