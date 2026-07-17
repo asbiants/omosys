@@ -122,44 +122,46 @@ function AppIcon({ id }: { id: string }) {
     case "hsd":
       return (
         <svg {...props}>
+          
           <path
-            d="M12 21V11"
+            d="M12 3C12 3 6 10 6 14.5C6 17.8 8.7 20.5 12 20.5C15.3 20.5 18 17.8 18 14.5C18 10 12 3 12 3Z"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M10 15.5C10.4 16.3 11.1 17 12 17"
             stroke="currentColor"
             strokeWidth="1.5"
             strokeLinecap="round"
-          />
-          <path
-            d="M12 11C12 7 8 4 5 6C5 10 8 13 12 11Z"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M12 11C12 7 16 4 19 6C19 10 16 13 12 11Z"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
           />
         </svg>
       );
     case "premi":
       return (
         <svg {...props}>
+          <rect
+            x="3"
+            y="6"
+            width="18"
+            height="12"
+            rx="2"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          />
+          <circle
+            cx="12"
+            cy="12"
+            r="2"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          />
           <path
-            d="M4 20V4"
+            d="M17 10H20"
             stroke="currentColor"
             strokeWidth="1.5"
             strokeLinecap="round"
           />
-          <path
-            d="M4 20H20"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
-          <rect x="7" y="12" width="3" height="6" rx="0.5" fill="currentColor" />
-          <rect x="12" y="9" width="3" height="9" rx="0.5" fill="currentColor" />
-          <rect x="17" y="6" width="3" height="12" rx="0.5" fill="currentColor" />
         </svg>
       );
     default:
